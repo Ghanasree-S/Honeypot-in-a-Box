@@ -1,7 +1,7 @@
 # core/routes/login.py
 from flask import Blueprint, request, jsonify
 from datetime import datetime
-from ..utils.logger import log_attack
+from ..utils.enrich import enrich_and_log
 
 auth_bp = Blueprint("auth", __name__)
 
@@ -43,7 +43,7 @@ def fake_login():
     }
 
     # Log into DB (and file)
-    log_attack(doc)
+    enrich_and_log(doc)
 
     # Return plausible response (always unsuccessful)
     return jsonify({"status": "error", "message": "Invalid credentials"}), 401
